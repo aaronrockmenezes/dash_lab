@@ -1,0 +1,86 @@
+[
+  {
+    "Prompt": "What is an operating system?",
+    "Message": "An operating system is the software that manages a computer's hardware and software resources.  It acts as a bridge between the user and the computer, allowing you to interact with it and run applications. \n",
+    "TimeSent": 1724943853,
+    "TimeRecvd": 1724943854,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What is the OSI model?",
+    "Message": "The OSI model is a conceptual framework that standardizes the communication functions of a telecommunications or computing system. \n\nIt divides network communication into seven layers, each with specific responsibilities. \n",
+    "TimeSent": 1724943854,
+    "TimeRecvd": 1724943854,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "Who was Alan Turing?",
+    "Message": "Alan Turing was a British mathematician and computer scientist.  \n\nHe is considered the father of theoretical computer science and artificial intelligence.  He played a pivotal role in breaking the Enigma code during World War II. \n",
+    "TimeSent": 1724943854,
+    "TimeRecvd": 1724943854,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "How do computer networks work?",
+    "Message": "Computer networks connect devices to share resources and communicate. \n\nThey use cables or wireless signals to transmit data in packets, which are like small envelopes containing information. \n\nRouters direct these packets across the network, ensuring they reach the intended destination. \n",
+    "TimeSent": 1724943854,
+    "TimeRecvd": 1724943855,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What is the Linux Kernel?",
+    "Message": "The Linux kernel is the core of a Linux operating system. It manages the system's resources (CPU, memory, devices) and provides a platform for applications to run. \n",
+    "TimeSent": 1724943855,
+    "TimeRecvd": 1724943855,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What is a File system?",
+    "Message": "A file system is a way to organize and store files on a storage device, like a hard drive or USB drive. \n\nIt provides a structured way to name, access, and manage files and folders. \n",
+    "TimeSent": 1724943855,
+    "TimeRecvd": 1724943856,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What is Docker?",
+    "Message": "Docker is a platform for building, shipping, and running applications in isolated environments called containers. \n",
+    "TimeSent": 1724943856,
+    "TimeRecvd": 1724943856,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What is a GPU and how is it different from a CPU?",
+    "Message": "A **GPU (Graphics Processing Unit)** is a specialized electronic circuit designed to rapidly manipulate and alter memory to accelerate the creation of images in a frame buffer intended for output to a display device. \n\n**CPUs (Central Processing Units)** are general-purpose processors that handle a wide range of tasks, including running software",
+    "TimeSent": 1724943856,
+    "TimeRecvd": 1724943857,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What are the layers of the OSI model?",
+    "Message": "The OSI model has 7 layers:\n\n1. Physical\n2. Data Link\n3. Network\n4. Transport\n5. Session\n6. Presentation\n7. Application \n\n",
+    "TimeSent": 1724943857,
+    "TimeRecvd": 1724943857,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What is BeeGFS?",
+    "Message": "BeeGFS is a high-performance, scalable file system designed for large-scale computing clusters. \n",
+    "TimeSent": 1724943857,
+    "TimeRecvd": 1724943857,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What are the various components that comprise a computer?",
+    "Message": "A computer has several key components:\n\n* **Hardware:** Physical parts like the CPU, memory, storage, motherboard, and peripherals (keyboard, mouse, monitor).\n* **Software:** Programs and instructions that tell the hardware what to do.\n* **Input devices:** Allow you to enter data (e.g",
+    "TimeSent": 1724943857,
+    "TimeRecvd": 1724943858,
+    "Model": "gemma2-9b-it"
+  },
+  {
+    "Prompt": "What is Federated Learning?",
+    "Message": "Federated learning is a machine learning method where models are trained on decentralized data sets. \n\nInstead of sending raw data to a central server, each device trains a local model on its own data. \n\nOnly model updates are shared, preserving data privacy. \n",
+    "TimeSent": 1724943858,
+    "TimeRecvd": 1724943858,
+    "Model": "gemma2-9b-it"
+  }
+]
