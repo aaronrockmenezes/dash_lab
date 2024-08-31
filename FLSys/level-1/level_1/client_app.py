@@ -1,8 +1,7 @@
-"""Level-1: A Flower / PyTorch app."""
+"""level-1: A Flower / PyTorch app."""
 
 from flwr.client import NumPyClient, ClientApp
 from flwr.common import Context
-import copy
 
 from level_1.task import (
     Net,
@@ -25,10 +24,8 @@ class FlowerClient(NumPyClient):
 
     def fit(self, parameters, config):
         set_weights(self.net, parameters)
-        self.teacher_net = copy.deepcopy(self.net)
         results = train(
             self.net,
-            self.teacher_net,
             self.trainloader,
             self.valloader,
             self.local_epochs,

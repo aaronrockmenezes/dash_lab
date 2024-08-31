@@ -1,4 +1,4 @@
-"""Level-1: A Flower / PyTorch app."""
+"""level-1: A Flower / PyTorch app."""
 
 from collections import OrderedDict
 
@@ -22,9 +22,9 @@ class Net(nn.Module):
         self.conv1 = nn.Conv2d(3, 6, 5)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
-        self.fc1 = nn.Linear(16 * 5 * 5, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, 10)
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 10)
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
@@ -34,104 +34,9 @@ class Net(nn.Module):
         x = F.relu(self.fc2(x))
         return self.fc3(x)
 
-class NTD_Loss(nn.Module):
-    """
-    Not-True Distillation Loss. This loss is used to preserve the knowledge of the global model
-        in the local model. The loss is calculated by comparing the local model's prediction with
-        the global model's prediction for the not-true class.
-
-        Loss Formula
-        ------------
-        NTD Loss is defined as the Kullback-Leibler divergence loss between the not-true softmax predictions of the local model and the global model. For simplicity, this implementation combines this loss with the Cross Entropy loss.
-    """
-
-    def __init__(self, num_classes=10, tau=3, beta=1):
-        """
-        Parameters
-        ----------
-        num_classes : int
-            Number of classes in the dataset
-        tau : float
-            Temperature parameter for distillation
-        beta : float
-            Weight for the NTD loss. It emphasizes the strength of knowledge preservation.
-        """
-        super(NTD_Loss, self).__init__()
-    
-        self.CE = nn.CrossEntropyLoss()
-        self.KLDiv = nn.KLDivLoss(reduction="batchmean")
-        self.num_classes = num_classes
-        self.tau = tau
-        self.beta = beta
-    
-    def forward(self, logits, targets, dg_logits):
-        ce_loss = self.CE(logits, targets)
-        ntd_loss = self._ntd_loss(logits, dg_logits, targets)
-
-        loss = ce_loss + self.beta * ntd_loss
-
-        return loss
-    
-    def _ntd_loss(self, logits, dg_logits, targets):
-        """
-        Not-True Distillation Loss.
-
-        Parameters
-        ----------
-        logits : torch.Tensor
-            The logits from the local model
-        dg_logits : torch.Tensor
-            The logits from the global model
-        targets : torch.Tensor
-            The target labels
-        
-        Returns
-        -------
-        torch.Tensor
-            The NTD loss
-        """
-
-        # Get smoothed local model prediction
-        logits = refine_as_not_true(logits, targets, self.num_classes)
-        pred_probs = F.log_softmax(logits / self.tau, dim=1)
-
-        # Get smoothed global model prediction
-        with torch.no_grad():
-            dg_logits = refine_as_not_true(dg_logits, targets, self.num_classes)
-            dg_probs = torch.softmax(dg_logits / self.tau, dim=1)
-
-        loss = (self.tau ** 2) * self.KLDiv(pred_probs, dg_probs)
-
-        return loss
-
-def refine_as_not_true(logits, targets, num_classes):
-    """
-    This is a helper function to refine the logits for the not-true class.
-
-    Parameters
-    ----------
-    logits : torch.Tensor
-        The logits from the model
-    targets : torch.Tensor
-        The target labels
-    num_classes : int
-        Number of classes in the dataset
-    
-    Returns
-    -------
-    torch.Tensor
-        The logits for the not-true class
-    """
-    nt_positions = torch.arange(0, num_classes).to(logits.device)
-    nt_positions = nt_positions.repeat(logits.size(0), 1)
-    nt_positions = nt_positions[nt_positions[:, :] != targets.view(-1, 1)]
-    nt_positions = nt_positions.view(-1, num_classes - 1)
-
-    logits = torch.gather(logits, 1, nt_positions)
-
-    return logits
 
 fds = None  # Cache FederatedDataset
+
 
 def load_data(partition_id: int, num_partitions: int):
     """Load partition CIFAR10 data."""
@@ -161,37 +66,18 @@ def load_data(partition_id: int, num_partitions: int):
     return trainloader, testloader
 
 
-def train(net, teacher_net, trainloader, valloader, epochs, device):
+def train(net, trainloader, valloader, epochs, device):
     """Train the model on the training set."""
     net.to(device)  # move model to GPU if available
     criterion = torch.nn.CrossEntropyLoss().to(device)
     optimizer = torch.optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
     net.train()
-
     for _ in range(epochs):
-        print(f"Training model:")
         for batch in trainloader:
             images = batch["img"]
             labels = batch["label"]
             optimizer.zero_grad()
-            data, targets = images.to(DEVICE), labels.to(DEVICE)
-            local_logits = net(data)
-
-            criterion(local_logits, targets).backward()
-            optimizer.step()
-
-        print(f"Distilling knowledge:")
-        for batch in trainloader:
-            images = batch["img"]
-            labels = batch["label"]
-            optimizer.zero_grad()
-            data, targets = images.to(DEVICE), labels.to(DEVICE)
-            with torch.no_grad():
-                teacher_logits = teacher_net(data)
-            local_logits = net(data)
-
-            distillation_loss = NTD_Loss()(local_logits, targets, teacher_logits)
-            distillation_loss.backward()
+            criterion(net(images.to(DEVICE)), labels.to(DEVICE)).backward()
             optimizer.step()
 
     train_loss, train_acc = test(net, trainloader)

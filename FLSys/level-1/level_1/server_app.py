@@ -1,4 +1,4 @@
-"""Level-1: A Flower / PyTorch app."""
+"""level-1: A Flower / PyTorch app."""
 
 from flwr.common import Context, ndarrays_to_parameters
 from flwr.server import ServerApp, ServerAppComponents, ServerConfig

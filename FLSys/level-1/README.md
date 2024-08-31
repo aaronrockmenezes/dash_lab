@@ -1,4 +1,4 @@
-# Level-1
+# level-1
 
 ## Install dependencies
 
@@ -8,7 +8,7 @@ pip install .
 
 ## Run (Simulation Engine)
 
-In the `Level-1` directory, use `flwr run` to run a local simulation:
+In the `level-1` directory, use `flwr run` to run a local simulation:
 
 ```bash
 flwr run
