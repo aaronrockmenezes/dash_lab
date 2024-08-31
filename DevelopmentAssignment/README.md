@@ -3,7 +3,7 @@ Development Assignment
 
 I've attempted the following tasks:
 
-Level 1 - API Calls
+Level 1 - API Calls (See folder Level_1)
 
 -> I've used gemma2 9 billion as the LLM using Groq. 
 
@@ -11,7 +11,7 @@ Level 1 - API Calls
 
 -> I've set up Groq as mentioned on the website, hence the lack of an API key in the code. Let me know if you need it(it's free!).
 
-Level 2 - Client-Server Model
+Level 2 - Client-Server Model (See folder Level_2_modified)
 
 -> I've created a simple client server model. You can run the server.py and client.py to see the outputs. 
 
