@@ -4,7 +4,7 @@ from flwr.client import NumPyClient, ClientApp
 from flwr.common import Context
 import copy
 
-from level_1.task import (
+from level_2.task import (
     Net,
     DEVICE,
     load_data,

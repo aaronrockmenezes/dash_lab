@@ -1,10 +1,10 @@
-"""Level-1: A Flower / PyTorch app."""
+"""Level-3: A Flower / PyTorch app."""
 
 from flwr.client import NumPyClient, ClientApp
 from flwr.common import Context
 import copy
 
-from level_1.task import (
+from level_3.task import (
     Net,
     DEVICE,
     load_data,
