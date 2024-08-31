@@ -1,0 +1,51 @@
+[
+    {
+        "Prompt": "What is a File system?",
+        "Response": "A file system is a structured way to organize and store files and directories on a storage device. \n",
+        "TimeSent": 1725126630,
+        "TimeReceived": 1725126630,
+        "Source": "gemma2-9b-it"
+    },
+    {
+        "Prompt": "What are the various components that comprise a computer?",
+        "Response": "A computer consists of hardware components like the central processing unit (CPU), memory, storage, input/output devices, and software that instructs the hardware. \n",
+        "TimeSent": 1725126630,
+        "TimeReceived": 1725126630,
+        "Source": "user"
+    },
+    {
+        "Prompt": "What are the various components that comprise a computer?",
+        "Response": "A computer consists of hardware components like the CPU, memory, storage, input/output devices, and software that instructs the hardware. \n",
+        "TimeSent": 1725126630,
+        "TimeReceived": 1725126630,
+        "Source": "user"
+    },
+    {
+        "Prompt": "What is Federated Learning?",
+        "Response": "Federated learning is a decentralized machine learning method where models are trained on local data sets and then aggregated to improve a global model. \n",
+        "TimeSent": 1725126630,
+        "TimeReceived": 1725126630,
+        "Source": "user"
+    },
+    {
+        "Prompt": "Who was Alan Turing?",
+        "Response": "Alan Turing was a British mathematician and computer scientist who is considered the father of theoretical computer science and artificial intelligence.  \n",
+        "TimeSent": 1725126630,
+        "TimeReceived": 1725126630,
+        "Source": "user"
+    },
+    {
+        "Prompt": "What is a File system?",
+        "Response": "A file system is a structured way to organize and store files and directories on a storage device. \n",
+        "TimeSent": 1725126630,
+        "TimeReceived": 1725126631,
+        "Source": "gemma2-9b-it"
+    },
+    {
+        "Prompt": "What is the Linux Kernel?",
+        "Response": "The Linux kernel is the core of a Linux operating system, managing system resources and providing a platform for applications.  \n",
+        "TimeSent": 1725126630,
+        "TimeReceived": 1725126631,
+        "Source": "user"
+    }
+]
