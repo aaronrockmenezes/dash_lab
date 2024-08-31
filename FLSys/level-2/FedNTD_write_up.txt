@@ -1,0 +1,18 @@
+Write up for FedNTD paper
+By Aaron Rock Menezes
+
+The paper titled 'Preservation of the Global Knowledge by Not-True Distillation in Federated Learning' talks about Knowledge Distillation wihtin Federated learning systems.
+It begins by talking about Forgetting in Federated Learning and how while splitting a dataset, the local networks may not be able to capture enough data to form a robust global network, formed by FedAvg.
+
+The authors do a comparitive study of the variance of classes amongst split datasets, wherein some clients may get data skewed towards a few classes and potentially completely miss out on the other datasets. FedAvg is unable to solve this issue as averaging the gradients of the local networks, trained on skewed/imbalanced datasets may not produce good results.
+
+The authors propose Not True Knowledge Distillation, wherein after each training iteration, the local models distill some Knowledge from the global model regarding the classes they predictced as not true. This is done by comparing the output logits of the local and global network on the local dataset, and then calculating the NTD Loss, which is the Cross Entropy loss summed up with the KL Divergence, a metric used to determine how different 2 probability distributions are, of the Not True classes, i.e. the claases that aren't present in the local dataset.
+
+Although this a simple strategy, it's benefits are non trivial. The strategy focuses on the classes absent in the local datasets, and trains the local model to mirror the global model's output distribution. This works since the global model is exposed to all classes in the dataset, and is less likely to be biased towards a particular class. 
+
+Notes:
+
+1. Beta is used as a parameter to focus on how important KD is, i.e. how much Knowledge should be preserved.s
+2. Tau is used as a temperature parameter to focus on much importance is given to the Not True Classes.
+
+3. NTD Loss = Cross Entropy(local logits, targets) + beta * KL Div(local logits/tau, global logits/tau) <-- Here, Non True Labels have been refined. See FLSys/level-3/level_3/task.py for this
