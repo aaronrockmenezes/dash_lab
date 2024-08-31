@@ -68,14 +68,16 @@ signal.signal(signal.SIGTERM, signal_handler)
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind the socket to the address and port
-server_socket.bind(('0.0.0.0', 2100))
+server_socket.bind(('0.0.0.0', 2116))
 
 # Listen for incoming connections
-server_socket.listen(5)
+server_socket.listen()
 
-client = []
+clients = []
+num_messages = 0
+max_messages = 10
 
-print("Server is running on port 2100...")
+print("Server is running on port 2115...")
 
 try:
     while True:
@@ -93,14 +95,23 @@ try:
             model_output, prompt = get_chat_completion(data, MODEL, TEMPERATURE, MAX_TOKENS)
             print(f"Response: {model_output}")
 
-            response = {'input_prompt': prompt, 'model_output': model_output}
-            response = json.dumps(response)
+            response = {'input_prompt': prompt, 'model_output': model_output, "Source":MODEL}
 
             # Send the response back to the client
-            client_socket.send(response.encode('utf-8'))
+            for client in clients:
+                if num_messages >= max_messages:
+                    response["End"] = True
+                if client != client_socket:
+                    response["Source"] = "User"
+                    client.send(json.dumps(response).encode('utf-8'))
+                else:
+                    client.send(json.dumps(response).encode('utf-8'))
 
         # Close the client connection
-        client_socket.close()
+        if num_messages >= max_messages:
+            for client_socket in clients:
+                client_socket.close()
+            break
 
 except Exception as e:
     print(f"An error occurred: {e}")

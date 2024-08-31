@@ -11,7 +11,7 @@ class Client:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.response_list = []
         self.messages_sent = 0
-        self.client_id = np.random.randint(0, 10)
+        self.client_id = np.random.randint(0, 1000)
         self.max_queries = 4
     
     def connect(self):

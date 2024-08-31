@@ -1,0 +1,8 @@
+{
+    "Prompt": "How do computer networks work?",
+    "Message": "Computer networks transmit data between devices using interconnected cables, wireless signals, or a combination of both. \n",
+    "TimeSent": 1725086570,
+    "TimeRecvd": 1725086572,
+    "ClientID": 1511,
+    "Source": "gemma2-9b-it"
+}

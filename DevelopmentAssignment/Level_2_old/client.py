@@ -8,9 +8,9 @@ import time
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Define the server address and port
-server_address = ('localhost', 2100)
+server_address = ('localhost', 2116)
 
-print("Client is connected to server running on port 2100...")
+print("Client is connected to server running on port 2115...")
 
 try:
     # Connect to the server
@@ -19,7 +19,7 @@ try:
     # Generate a random client ID
     client_id = np.random.randint(1000, 9999)
 
-    with open('input.txt', 'r+') as file:
+    with open('./input.txt', 'r+') as file:
         line = np.random.choice(file.readlines())
         message = line.strip()
 
@@ -39,21 +39,23 @@ try:
 
     # Append response to output json file (first check if file exists)
     output_dict = {}
-    output_file_name = "output.json"
+    output_file_name = f"output_{client_id}.json"
     
     output_dict[prompt] = {
         "Prompt": prompt,
         "Message": model_output,
         "TimeSent": start_time,
         "TimeRecvd": end_time,
-        "ClientID": client_id
+        "ClientID": client_id,
+        "Source": response["Source"]
     }
 
     with open(output_file_name, "w+") as output_file:
         json.dump(list(output_dict.values())[0], output_file, indent=4)
 
     # Close the connection
-    client_socket.close()
+    if response["End"] and response["End"]==True:
+        client_socket.close()
 
 except Exception as e:
     print(f"An error occurred: {e}")
